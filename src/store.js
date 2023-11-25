@@ -5,7 +5,9 @@ class Store {
     constructor(initState = {}) {
         this.state = initState;
         this.listeners = []; // Слушатели изменений состояния
-        this.codeNumber = this.state.list?.length + 1 || 0; // добавил
+        this.codeNumber =
+            [...this.state.list].sort((a, b) => b.code - a.code)[0].code + 1 ||
+            0; //учел варианты, когда код в исходном массиве > длины исходного массива
     }
 
     /**
@@ -91,7 +93,6 @@ class Store {
                 return item;
             }),
         });
-        console.log(this.state);
     }
 }
 

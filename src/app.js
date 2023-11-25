@@ -33,7 +33,9 @@ function App({ store }) {
                                 <div className="Item-title">
                                     {item.title}
                                     {!!item.selectNumber &&
-                                        ` | Выделяли ${item.selectNumber} раз(а)`}
+                                        ` | Выделяли ${
+                                            item.selectNumber
+                                        } ${plural(item.selectNumber)}`}
                                 </div>
                                 <div className="Item-actions">
                                     <button
@@ -54,3 +56,18 @@ function App({ store }) {
 }
 
 export default App;
+
+function plural(n) {
+    const forms = ["раза", "раз"];
+    let idx;
+    if (
+        (n % 10 === 2 && n % 100 !== 12) ||
+        (n % 10 === 3 && n % 100 !== 13) ||
+        (n % 10 === 4 && n % 100 !== 14)
+    ) {
+        idx = 0; // 'раза'
+    } else {
+        idx = 1; // 'раз'
+    }
+    return forms[idx] || "";
+}
