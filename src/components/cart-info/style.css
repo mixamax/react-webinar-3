@@ -1,0 +1,19 @@
+.Cart-info {
+  display: flex;
+  justify-content: flex-end;
+  border-bottom: 1px dashed #ccc;
+}
+.Cart-info-button {
+  min-width: 75px;
+}
+.Cart-info-text {
+  /* display: flex; */
+  /* justify-content: flex-end; */
+  padding: 20px 10px;
+  white-space: pre-wrap;
+}
+.Cart-info-actions {
+  /* display: flex; */
+  /* justify-content: flex-end; */
+  padding: 20px 20px 20px 10px;
+}
