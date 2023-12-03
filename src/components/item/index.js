@@ -25,10 +25,13 @@ function Item(props) {
         {props.item.price.toLocaleString("ru-RU", {
           style: "currency",
           currency: "RUB",
+          maximumFractionDigits: 0,
         })}
       </div>
       <div className={cn("actions")}>
-        <button onClick={callbacks.addItem}>Добавить</button>
+        <button className={cn("button")} onClick={callbacks.addItem}>
+          Добавить
+        </button>
       </div>
     </div>
   );

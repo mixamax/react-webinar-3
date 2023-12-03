@@ -3,7 +3,9 @@ import PropTypes, { number } from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 import CartHead from "../cart-head";
-import CartList from "../cart-list";
+import List from "../list";
+import CartItem from "../cart-item";
+import TotalAmount from "../total-amount";
 
 function Cart({
   cartItemCodes,
@@ -17,12 +19,19 @@ function Cart({
   return (
     <div className={cn()}>
       <CartHead title="Корзина" setIsModalOpen={setIsModalOpen} />
-      <CartList
-        cartItemCodes={cartItemCodes}
-        cart={cart}
-        totalAmount={totalAmount}
-        onDeleteCartItem={onDeleteCartItem}
-      />
+      <List>
+        {cartItemCodes.map((code) => (
+          <CartItem
+            key={code}
+            code={code}
+            price={cart[code].price}
+            quantity={cart[code].quantity}
+            title={cart[code].title}
+            deleteCartItem={onDeleteCartItem}
+          />
+        ))}
+      </List>
+      <TotalAmount totalAmount={totalAmount} />
     </div>
   );
 }

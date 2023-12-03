@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from "react";
 import List from "./components/list";
-import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import CartInfo from "./components/cart-info";
 import Modal from "./components/modal";
 import Cart from "./components/cart";
+import Item from "./components/item";
 
 /**
  * Приложение
@@ -71,12 +71,17 @@ function App({ store }) {
           totalCartItemsNumber={totalCartItemsNumber}
           setIsModalOpen={setIsModalOpen}
         />
-        <List
-          list={list}
-          onDeleteItem={callbacks.onDeleteItem}
-          onSelectItem={callbacks.onSelectItem}
-          onAddCartItem={callbacks.onAddCartItem}
-        />
+        <List>
+          {list.map((item) => (
+            <Item
+              key={item.code}
+              item={item}
+              onDeleteItem={callbacks.onDeleteItem}
+              onSelectItem={callbacks.onSelectItem}
+              onAddCartItem={callbacks.onAddCartItem}
+            />
+          ))}
+        </List>
       </PageLayout>
       <Modal isModalOpen={isModalOpen}>
         <Cart

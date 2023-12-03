@@ -1,0 +1,10 @@
+.Amount {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 120px 20px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.Amount-number {
+  margin-left: 53px;
+}

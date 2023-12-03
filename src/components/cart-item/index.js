@@ -14,6 +14,7 @@ function CartItem(props) {
         {props.price.toLocaleString("ru-RU", {
           style: "currency",
           currency: "RUB",
+          maximumFractionDigits: 0,
         })}
       </div>
       <div className="Cart-item-quantity">{`${props.quantity} шт`}</div>

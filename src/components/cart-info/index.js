@@ -9,24 +9,25 @@ function CartInfo(props) {
   return (
     <div className={cn()}>
       {props.totalCartItemsNumber === 0 ? (
-        <span className={cn("text")}>
-          В корзине <b>пусто</b>
-        </span>
+        <div className={cn("text")}>
+          <span>В корзине:</span>
+          <span className={cn("text", { weight: "bold" })}>пусто</span>
+        </div>
       ) : (
-        <span className={cn("text")}>
-          В корзине:
-          <b>{`  ${props.totalCartItemsNumber} ${plural(
-            props.totalCartItemsNumber,
-            {
-              one: "товар",
-              few: "товара",
-              many: "товаров",
-            }
-          )} / ${props.totalAmount.toLocaleString("ru-RU", {
+        <div className={cn("text")}>
+          <span>В корзине:</span>
+          <span className={cn("text", { weight: "bold" })}>{`  ${
+            props.totalCartItemsNumber
+          } ${plural(props.totalCartItemsNumber, {
+            one: "товар",
+            few: "товара",
+            many: "товаров",
+          })} / ${props.totalAmount.toLocaleString("ru-RU", {
             style: "currency",
             currency: "RUB",
-          })}`}</b>
-        </span>
+            maximumFractionDigits: 0,
+          })}`}</span>
+        </div>
       )}
 
       <div className={cn("actions")}>

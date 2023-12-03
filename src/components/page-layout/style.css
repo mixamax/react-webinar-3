@@ -3,10 +3,14 @@ body {
   padding: 0;
   background: #535353;
   font-family: sans-serif;
+  color: #000;
+  font-family: Arial;
+  font-style: normal;
+  line-height: normal;
 }
 
 .PageLayout {
-  max-width: 1024px;
+  width: 1024px;
   min-height: 100vh;
   margin: 0 auto;
   background: #fff;
