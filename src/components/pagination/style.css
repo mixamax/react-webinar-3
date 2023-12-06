@@ -1,0 +1,29 @@
+/* Итого в корзине */
+.Pagination {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 22px;
+  padding-right: 21px;
+}
+
+.Pagination-number {
+  min-width: 18px;
+  padding-left: 1px;
+  padding-right: 1px;
+  height: 20px;
+  color: #000;
+  text-align: center;
+  font-family: Arial;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  cursor: pointer;
+}
+.Pagination-number_color_grey {
+  color: #ccc;
+}
+.Pagination-number_active_true {
+  background-color: rgba(0, 135, 233, 1);
+  color: #fff;
+}
