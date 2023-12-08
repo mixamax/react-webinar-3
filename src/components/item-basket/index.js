@@ -23,6 +23,7 @@ function ItemBasket(props) {
         className={cn("title")}
         onClick={() => {
           navigate(`/${props.item._id}`);
+          //   console.log(props.item._id, props.item.title);
           callbacks.closeModal();
         }}
       >

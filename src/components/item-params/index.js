@@ -1,20 +1,28 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import { numberFormat } from "../../utils";
 import "./style.css";
+import useSelector from "../../store/use-selector";
 
 function ItemParams(props) {
-  console.log(props._id);
+  const select = useSelector((state) => ({
+    list: state.catalog.list,
+  }));
+
+  useEffect(() => {
+    if (select.list.length === 0) select.list.push(props.data);
+  }, []);
+
   const cn = bem("Item-params");
   return (
     <div className={cn()}>
       <span className={cn("description")}>{props.data.description}</span>
       <span className={cn("description")}>
-        Страна производитель: <b>{props.data.madeIn}</b>
+        Страна производитель: <b>{props.data.madeIn.title}</b>
       </span>
       <span className={cn("description")}>
-        Категория: <b>{props.data.category}</b>
+        Категория: <b>{props.data.category.title}</b>
       </span>
       <span className={cn("description")}>
         Год выпуска: <b>{props.data.edition}</b>
@@ -38,8 +46,8 @@ ItemParams.propTypes = {
   data: PropTypes.shape({
     description: PropTypes.string,
     title: PropTypes.string,
-    madeIn: PropTypes.string,
-    category: PropTypes.string,
+    madeIn: PropTypes.object,
+    category: PropTypes.object,
     edition: PropTypes.number,
     price: PropTypes.number,
   }).isRequired,
