@@ -48,6 +48,7 @@ function ItemPage() {
           addToBasket={callbacks.addToBasket}
           _id={itemId}
           data={data}
+          list={select.list}
         />
       )}
     </PageLayout>

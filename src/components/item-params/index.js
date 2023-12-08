@@ -3,15 +3,10 @@ import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import { numberFormat } from "../../utils";
 import "./style.css";
-import useSelector from "../../store/use-selector";
 
 function ItemParams(props) {
-  const select = useSelector((state) => ({
-    list: state.catalog.list,
-  }));
-
   useEffect(() => {
-    if (select.list.length === 0) select.list.push(props.data);
+    if (props.list.length === 0) props.list.push(props.data);
   }, []);
 
   const cn = bem("Item-params");
