@@ -5,25 +5,21 @@ import { numberFormat } from "../../utils";
 import "./style.css";
 
 function ItemParams(props) {
-  useEffect(() => {
-    if (props.list.length === 0) props.list.push(props.data);
-  }, []);
-
   const cn = bem("Item-params");
   return (
     <div className={cn()}>
-      <span className={cn("description")}>{props.data.description}</span>
+      <span className={cn("description")}>{props.data?.description}</span>
       <span className={cn("description")}>
-        Страна производитель: <b>{props.data.madeIn.title}</b>
+        Страна производитель: <b>{props.data?.madeIn?.title}</b>
       </span>
       <span className={cn("description")}>
-        Категория: <b>{props.data.category.title}</b>
+        Категория: <b>{props.data?.category?.title}</b>
       </span>
       <span className={cn("description")}>
-        Год выпуска: <b>{props.data.edition}</b>
+        Год выпуска: <b>{props.data?.edition}</b>
       </span>
       <span className={cn("price")}>
-        Цена: {numberFormat(props.data.price)} ₽
+        Цена: {numberFormat(props.data?.price)} ₽
       </span>
       <button
         className={cn("button")}
