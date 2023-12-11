@@ -1,0 +1,13 @@
+/* Контрол с общими действиями */
+
+.menu {
+  color: #0087e9;
+  font-family: Arial;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  width: 100%;
+  padding-top: 18px;
+  padding: 20px;
+}

@@ -6,6 +6,8 @@ import BasketTool from "../../components/basket-tool";
 import ItemParams from "../../components/item-params";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import FlexTool from "../../components/flex-tool";
+import Menu from "../../components/menu";
 
 function ItemPage() {
   let { itemId } = useParams();
@@ -45,11 +47,15 @@ function ItemPage() {
   return (
     <PageLayout>
       <Head title={select.itemData.title} />
-      <BasketTool
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-      />
+      <FlexTool>
+        <Menu />
+        <BasketTool
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+        />
+      </FlexTool>
+
       <ItemParams
         addToBasket={callbacks.addToBasket}
         _id={itemId}

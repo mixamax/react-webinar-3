@@ -15,7 +15,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/:itemId" element={<ItemPage />} />
+        <Route path="/articles/:itemId" element={<ItemPage />} />
         <Route path="*" element={<div>Страница не найдена</div>} />
       </Routes>
       {activeModal === "basket" && <Basket />}

@@ -7,6 +7,8 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination";
+import FlexTool from "../../components/flex-tool";
+import Menu from "../../components/menu";
 
 function Main() {
   const store = useStore();
@@ -48,11 +50,15 @@ function Main() {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <BasketTool
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-      />
+      <FlexTool>
+        <Menu />
+        <BasketTool
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+        />
+      </FlexTool>
+
       <List list={select.list} renderItem={renders.item} />
       <Pagination
         activePage={activePage}
