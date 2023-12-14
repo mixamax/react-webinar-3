@@ -9,24 +9,18 @@ import SideLayout from "../../components/side-layout";
 /**
  * Контейнер со всеми фильтрами каталога
  */
-function CatalogFilter() {
+function CategoryFilter() {
   const store = useStore();
 
   const select = useSelector((state) => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
-    category: state.catalog.params.category,
-    categoryList: state.catalog.categoryList,
   }));
 
   const callbacks = {
     // Сортировка
     onSort: useCallback(
       (sort) => store.actions.catalog.setParams({ sort }),
-      [store]
-    ),
-    onSortCategory: useCallback(
-      (category) => store.actions.catalog.setParams({ category, page: 1 }),
       [store]
     ),
     // Поиск
@@ -55,11 +49,6 @@ function CatalogFilter() {
   return (
     <SideLayout padding="medium">
       <Select
-        options={select.categoryList}
-        value={select.category}
-        onChange={callbacks.onSortCategory}
-      />
-      <Select
         options={options.sort}
         value={select.sort}
         onChange={callbacks.onSort}
@@ -75,4 +64,4 @@ function CatalogFilter() {
   );
 }
 
-export default memo(CatalogFilter);
+export default memo(CategoryFilter);

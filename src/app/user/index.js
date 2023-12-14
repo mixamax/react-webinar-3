@@ -1,29 +1,16 @@
 import { memo } from "react";
-import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
-import useInit from "../../hooks/use-init";
 import Navigation from "../../containers/navigation";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
-import CatalogFilter from "../../containers/catalog-filter";
-import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
 import Enter from "../../components/enter";
+import UserInfo from "../../components/user-info";
 
 /**
- * Главная страница - первичная загрузка каталога
+ *  страница информации о юзере
  */
-function Main() {
-  const store = useStore();
-
-  useInit(
-    () => {
-      store.actions.catalog.initParams();
-    },
-    [],
-    true
-  );
-
+function User() {
   const { t } = useTranslate();
 
   return (
@@ -33,10 +20,9 @@ function Main() {
         <LocaleSelect />
       </Head>
       <Navigation />
-      <CatalogFilter />
-      <CatalogList />
+      <UserInfo />
     </PageLayout>
   );
 }
 
-export default memo(Main);
+export default memo(User);
