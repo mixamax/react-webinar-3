@@ -15,15 +15,6 @@ class UserState extends StoreModule {
     const token = localStorage.getItem("token");
 
     if (token) {
-      this.setState(
-        {
-          ...this.getState(),
-          access: true,
-          //   isLoading: true,
-        },
-        "доступ к инфо юзера разрешен"
-      );
-
       const response = await fetch(`/api/v1/users/self?fields=*`, {
         headers: {
           "Content-Type": "application/json",
@@ -36,6 +27,7 @@ class UserState extends StoreModule {
         this.setState(
           {
             ...this.getState(),
+            access: true,
             userName: json.result.profile.name,
             userPhone: json.result.profile.phone,
             userEmail: json.result.email,

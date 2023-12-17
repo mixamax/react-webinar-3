@@ -23,15 +23,11 @@ function Article() {
   const select = useSelector((state) => ({
     article: state.article.data,
     waiting: state.article.waiting,
-    isLogin: state.login.isLogin,
   }));
 
   useInit(() => {
     store.actions.article.load(params.id);
   }, [params.id]);
-  useInit(() => {
-    store.actions.login.setLogInState();
-  }, [select.isLogin]);
 
   const { t } = useTranslate();
 

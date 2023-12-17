@@ -1,11 +1,9 @@
-import { memo, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { memo } from "react";
 import "./style.css";
 import useSelector from "../../hooks/use-selector";
 import { cn as bem } from "@bem-react/classname";
 
 function UserInfo() {
-  const navigate = useNavigate();
   const cn = bem("User");
 
   const select = useSelector((state) => ({
@@ -16,21 +14,6 @@ function UserInfo() {
     isLoading: state.user.isLoading,
     isLogin: state.login.isLogin,
   }));
-
-  //   useInit(
-  //     () => {
-  //       store.actions.user.getAccess();
-  //     },
-  //     [select.isLogin],
-  //     true
-  //   );
-
-  useEffect(() => {
-    if (!select.isLoading && !select.access) {
-      console.log("переходим в логин");
-      navigate("/login");
-    }
-  }, [select.access, select.isLoading]);
 
   return (
     <div className={cn()}>

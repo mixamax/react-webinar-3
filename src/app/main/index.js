@@ -16,9 +16,6 @@ import useSelector from "../../hooks/use-selector";
  */
 function Main() {
   const store = useStore();
-  const select = useSelector((state) => ({
-    isLogin: state.login.isLogin,
-  }));
 
   useInit(
     () => {
@@ -26,13 +23,6 @@ function Main() {
       store.actions.catalog.initParams();
     },
     [],
-    true
-  );
-  useInit(
-    () => {
-      store.actions.login.setLogInState();
-    },
-    [select.isLogin],
     true
   );
 
