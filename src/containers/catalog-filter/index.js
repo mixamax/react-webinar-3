@@ -11,12 +11,12 @@ import SideLayout from "../../components/side-layout";
  */
 function CatalogFilter() {
   const store = useStore();
-
+  console.log(store);
   const select = useSelector((state) => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categoryList: state.catalog.categoryList,
+    categoryList: state.categoryList.categoryList,
   }));
 
   const callbacks = {

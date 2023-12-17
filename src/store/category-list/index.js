@@ -3,7 +3,7 @@ import StoreModule from "../module";
 /**
  * Состояние каталога - параметры фильтра и список товара
  */
-class CatalogState extends StoreModule {
+class CategoryListState extends StoreModule {
   /**
    * Начальное состояние
    * @return {Object}
@@ -11,16 +11,10 @@ class CatalogState extends StoreModule {
 
   initState() {
     return {
-      list: [],
       params: {
-        page: 1,
-        limit: 10,
-        sort: "order",
-        query: "",
         category: "Все",
       },
-      count: 0,
-      waiting: false,
+      categoryList: [],
     };
   }
 
@@ -31,16 +25,72 @@ class CatalogState extends StoreModule {
    * @return {Promise<void>}
    */
 
+  async getallCategories() {
+    this.setState(
+      {
+        ...this.getState(),
+        categoryList: [],
+      },
+      "Установлены параметры категории каталога"
+    );
+
+    const response = await fetch(
+      `/api/v1/categories?fields=_id,title,parent(_id)&limit=*`
+    );
+    const json = await response.json();
+    const allCategories = json.result.items;
+    const parent = [];
+    const children = [];
+    const result = [{ title: "Все" }];
+    const hash = {};
+
+    function getOptions() {
+      allCategories.forEach((item) => {
+        if (item.parent === null) {
+          parent.push(item);
+        } else {
+          children.push(item);
+          hash[item.parent._id]
+            ? (hash[item.parent._id] = [...hash[item.parent._id], item])
+            : (hash[item.parent._id] = [item]);
+        }
+      });
+      function res(parentId, count = "") {
+        count += "- ";
+        if (hash[parentId]) {
+          hash[parentId].forEach((item) => {
+            result.push({ ...item, title: count + item.title });
+
+            res(item._id, count);
+          });
+        } else {
+          return;
+        }
+      }
+      parent.forEach((parentItem) => {
+        result.push(parentItem);
+        res(parentItem._id);
+      });
+    }
+    getOptions();
+    const categoryList = result.map((item) => ({
+      value: item._id || "Все",
+      title: item.title,
+    }));
+
+    this.setState(
+      {
+        ...this.getState(),
+        categoryList,
+      },
+      "Установлены параметры категории каталога"
+    );
+  }
+
   async initParams(newParams = {}) {
     const urlParams = new URLSearchParams(window.location.search);
-    console.log(Array.from(urlParams.entries()));
+
     let validParams = {};
-    if (urlParams.has("page"))
-      validParams.page = Number(urlParams.get("page")) || 1;
-    if (urlParams.has("limit"))
-      validParams.limit = Math.min(Number(urlParams.get("limit")) || 10, 50);
-    if (urlParams.has("sort")) validParams.sort = urlParams.get("sort");
-    if (urlParams.has("query")) validParams.query = urlParams.get("query");
     if (urlParams.has("category"))
       validParams.category = urlParams.get("category");
     await this.setParams(
@@ -77,7 +127,7 @@ class CatalogState extends StoreModule {
         params,
         waiting: true,
       },
-      "Установлены параметры каталога"
+      "Установлены параметры категории каталога"
     );
 
     // Сохранить параметры в адрес страницы
@@ -105,12 +155,13 @@ class CatalogState extends StoreModule {
       `/api/v1/articles?${new URLSearchParams(apiParams)}`
     );
     const json = await response.json();
-
+    const categories = await this.getallCategories();
     this.setState(
       {
         ...this.getState(),
         list: json.result.items,
         count: json.result.count,
+        categoryList: categories,
         waiting: false,
       },
       "Загружен список товаров из АПИ"
@@ -118,4 +169,4 @@ class CatalogState extends StoreModule {
   }
 }
 
-export default CatalogState;
+export default CategoryListState;

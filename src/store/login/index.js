@@ -1,6 +1,41 @@
 import StoreModule from "../module";
 
 class LoginState extends StoreModule {
+  initState() {
+    return {
+      token: "",
+      isLogin: false,
+      logError: "",
+    };
+  }
+
+  setInitState() {
+    this.setState(
+      {
+        ...this.getState(),
+        ...this.initState(),
+      },
+      "установили начальное значение формы Login"
+    );
+  }
+
+  setLogInState() {
+    const token = localStorage.getItem("token");
+    if (token) {
+      this.setState(
+        {
+          ...this.getState(),
+          token: localStorage.getItem("token") || "",
+          isLogin: true,
+          logError: "",
+        },
+        "установили значение token"
+      );
+    } else {
+      this.setInitState();
+    }
+  }
+
   async logOut() {
     const token = localStorage.getItem("token");
     const response = await fetch(`/api/v1/users/sign`, {
@@ -18,56 +53,10 @@ class LoginState extends StoreModule {
       {
         ...this.getState(),
         token: "",
-        access: false,
-        userName: "",
-        userPhone: "",
-        userEmail: "",
+        isLogin: false,
       },
       "удалили токен"
     );
-  }
-
-  async getAccess() {
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      const response = await fetch(`/api/v1/users/self?fields=*`, {
-        headers: {
-          "Content-Type": "application/json",
-          "X-token": token,
-        },
-      });
-
-      if (response.ok) {
-        const json = await response.json();
-        this.setState(
-          {
-            ...this.getState(),
-            access: true,
-            userName: json.result.profile.name,
-            userPhone: json.result.profile.phone,
-            userEmail: json.result.email,
-          },
-          "Получен доступ к инфо юзера из АПИ"
-        );
-      } else {
-        this.setState(
-          {
-            ...this.getState(),
-            access: false,
-          },
-          "Нет доступа, токен не распознан "
-        );
-      }
-    } else {
-      this.setState(
-        {
-          ...this.getState(),
-          access: false,
-        },
-        "Нет доступа, нет токена "
-      );
-    }
   }
 
   async logIn(login, password) {
@@ -90,13 +79,10 @@ class LoginState extends StoreModule {
         {
           ...this.getState(),
           token: json.result.token,
-          access: true,
-          userName: json.result.user.profile.name,
-          userPhone: json.result.user.profile.phone,
-          userEmail: json.result.user.email,
+          isLogin: true,
           logError: "",
         },
-        "Загружена инфо о юзере из АПИ"
+        "Загружен токен"
       );
     } else {
       const json = await response.json();
@@ -104,10 +90,10 @@ class LoginState extends StoreModule {
         {
           ...this.getState(),
           token: "",
-          userName: "",
+          isLogin: false,
           logError: json.error.data.issues[0].message,
         },
-        "Ошибка при загрузке инфо о юзере из АПИ"
+        "Ошибка при загрузке токена"
       );
     }
   }

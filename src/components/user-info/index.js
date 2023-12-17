@@ -9,17 +9,28 @@ function UserInfo() {
   const cn = bem("User");
 
   const select = useSelector((state) => ({
-    access: state.login.access,
-    name: state.login.userName,
-    phone: state.login.userPhone,
-    email: state.login.userEmail,
+    access: state.user.access,
+    name: state.user.userName,
+    phone: state.user.userPhone,
+    email: state.user.userEmail,
+    isLoading: state.user.isLoading,
+    isLogin: state.login.isLogin,
   }));
 
+  //   useInit(
+  //     () => {
+  //       store.actions.user.getAccess();
+  //     },
+  //     [select.isLogin],
+  //     true
+  //   );
+
   useEffect(() => {
-    if (!select.access) {
+    if (!select.isLoading && !select.access) {
+      console.log("переходим в логин");
       navigate("/login");
     }
-  }, [select.access]);
+  }, [select.access, select.isLoading]);
 
   return (
     <div className={cn()}>

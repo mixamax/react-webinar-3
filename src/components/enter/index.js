@@ -3,27 +3,37 @@ import { Link, useNavigate } from "react-router-dom";
 import "./style.css";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
+// import useInit from "../../hooks/use-init";
 
 function Enter() {
   const navigate = useNavigate();
   const store = useStore();
   const select = useSelector((state) => ({
-    userName: state.login.userName,
-    access: state.login.access,
+    userName: state.user.userName,
+    isLogin: state.login.isLogin,
+    access: state.user.access,
   }));
+
+  //   useInit(
+  //     () => {
+  //       store.actions.login.setLogInState();
+  //     },
+  //     [],
+  //     true
+  //   );
 
   const callbacks = {
     logOut: useCallback(() => store.actions.login.logOut(), [store]),
-    getAccess: useCallback(() => store.actions.login.getAccess(), [store]),
+    getAccess: useCallback(() => store.actions.user.getAccess(), [store]),
   };
 
   useEffect(() => {
     callbacks.getAccess();
-  }, [select.access]);
+  }, [select.isLogin]);
 
   return (
     <div className="Enter">
-      <Link className="Enter-link" to={"/user"}>
+      <Link className="Enter-link" to={`/users/${select.userName}`}>
         {select.userName}
       </Link>
       {select.access ? (

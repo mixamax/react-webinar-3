@@ -9,9 +9,10 @@ function LoginForm() {
   const [passValue, setPassValue] = useState("");
   const store = useStore();
   const navigate = useNavigate();
+
   const select = useSelector((state) => ({
     logError: state.login.logError,
-    access: state.login.access,
+    isLogin: state.login.isLogin,
   }));
 
   const callbacks = {
@@ -19,13 +20,20 @@ function LoginForm() {
       (log, pass) => store.actions.login.logIn(log, pass),
       [store]
     ),
+    setInitLoginState: useCallback(
+      () => store.actions.login.setInitState(),
+      [store]
+    ),
   };
 
   useEffect(() => {
-    if (select.access) {
+    console.log("select.isLogin", select.isLogin);
+    if (select.isLogin) {
       navigate("/");
+    } else {
+      callbacks.setInitLoginState();
     }
-  }, [select.access]);
+  }, [select.isLogin]);
 
   return (
     <div className="Login">

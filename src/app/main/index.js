@@ -9,26 +9,37 @@ import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
 import Enter from "../../components/enter";
+import useSelector from "../../hooks/use-selector";
 
 /**
  * Главная страница - первичная загрузка каталога
  */
 function Main() {
   const store = useStore();
+  const select = useSelector((state) => ({
+    isLogin: state.login.isLogin,
+  }));
 
   useInit(
     () => {
+      store.actions.categoryList.getallCategories();
       store.actions.catalog.initParams();
     },
     [],
+    true
+  );
+  useInit(
+    () => {
+      store.actions.login.setLogInState();
+    },
+    [select.isLogin],
     true
   );
 
   const { t } = useTranslate();
 
   return (
-    <PageLayout>
-      <Enter />
+    <PageLayout head={<Enter />}>
       <Head title={t("title")}>
         <LocaleSelect />
       </Head>

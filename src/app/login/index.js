@@ -5,21 +5,32 @@ import useInit from "../../hooks/use-init";
 import Navigation from "../../containers/navigation";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
-import CatalogFilter from "../../containers/catalog-filter";
 
 import LocaleSelect from "../../containers/locale-select";
 import Enter from "../../components/enter";
 import LoginForm from "../../components/login-form";
+import useSelector from "../../hooks/use-selector";
 
 /**
  *  страница авторизации
  */
 function LogIn() {
   const { t } = useTranslate();
+  const store = useStore();
+  const select = useSelector((state) => ({
+    isLogin: state.login.isLogin,
+  }));
+
+  useInit(
+    () => {
+      store.actions.login.setLogInState();
+    },
+    [select.isLogin],
+    true
+  );
 
   return (
-    <PageLayout>
-      <Enter />
+    <PageLayout head={<Enter />}>
       <Head title={t("title")}>
         <LocaleSelect />
       </Head>
