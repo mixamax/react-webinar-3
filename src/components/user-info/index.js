@@ -1,6 +1,7 @@
 import { memo } from "react";
 import "./style.css";
 import { cn as bem } from "@bem-react/classname";
+import PropTypes from "prop-types";
 
 function UserInfo(props) {
   const cn = bem("User");
@@ -24,3 +25,9 @@ function UserInfo(props) {
 }
 
 export default memo(UserInfo);
+
+UserInfo.propTypes = {
+  name: PropTypes.string,
+  phone: PropTypes.string,
+  email: PropTypes.string,
+};

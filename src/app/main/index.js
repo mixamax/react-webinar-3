@@ -8,8 +8,7 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
-import Enter from "../../components/enter";
-import useSelector from "../../hooks/use-selector";
+import EnterContainer from "../../containers/enter-container";
 
 /**
  * Главная страница - первичная загрузка каталога
@@ -29,7 +28,7 @@ function Main() {
   const { t } = useTranslate();
 
   return (
-    <PageLayout head={<Enter />}>
+    <PageLayout head={<EnterContainer />}>
       <Head title={t("title")}>
         <LocaleSelect />
       </Head>

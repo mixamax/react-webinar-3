@@ -4,9 +4,9 @@ import Navigation from "../../containers/navigation";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
-import Enter from "../../components/enter";
 import UserInfo from "../../components/user-info";
 import useSelector from "../../hooks/use-selector";
+import EnterContainer from "../../containers/enter-container";
 
 /**
  *  страница информации о юзере
@@ -20,7 +20,7 @@ function User() {
   }));
 
   return (
-    <PageLayout head={<Enter />}>
+    <PageLayout head={<EnterContainer />}>
       <Head title={t("title")}>
         <LocaleSelect />
       </Head>

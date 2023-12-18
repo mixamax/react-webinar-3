@@ -1,47 +1,20 @@
-import { memo, useCallback, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { memo } from "react";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import "./style.css";
-import useSelector from "../../hooks/use-selector";
-import useStore from "../../hooks/use-store";
-// import useInit from "../../hooks/use-init";
 
-function Enter() {
-  const navigate = useNavigate();
-  const store = useStore();
-  const select = useSelector((state) => ({
-    userName: state.user.userName,
-    isLogin: state.login.isLogin,
-    access: state.user.access,
-  }));
-
-  //   useInit(
-  //     () => {
-  //       store.actions.login.setLogInState();
-  //     },
-  //     [],
-  //     true
-  //   );
-
-  const callbacks = {
-    logOut: useCallback(() => store.actions.login.logOut(), [store]),
-    getAccess: useCallback(() => store.actions.user.getAccess(), [store]),
-  };
-
-  useEffect(() => {
-    callbacks.getAccess();
-  }, [select.isLogin]);
-
+function Enter(props) {
   return (
     <div className="Enter">
-      <Link className="Enter-link" to={`/users/${select.userName}`}>
-        {select.userName}
+      <Link className="Enter-link" to={`/users/${props.userName}`}>
+        {props.userName}
       </Link>
-      {select.access ? (
-        <button className="Enter-button" onClick={callbacks.logOut}>
+      {props.access ? (
+        <button className="Enter-button" onClick={props.logOut}>
           Выход
         </button>
       ) : (
-        <button onClick={() => navigate("/login")} className="Enter-button">
+        <button onClick={() => props.navigate()} className="Enter-button">
           Вход
         </button>
       )}
@@ -49,4 +22,15 @@ function Enter() {
   );
 }
 
+Enter.propTypes = {
+  userName: PropTypes.string,
+  access: PropTypes.bool,
+  logOut: PropTypes.func,
+  navigate: PropTypes.func,
+};
+
+Enter.defaultProps = {
+  logOut: () => {},
+  navigate: () => {},
+};
 export default memo(Enter);
