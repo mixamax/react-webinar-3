@@ -1,0 +1,46 @@
+.Comment-card {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.Comment-card-title {
+  font-size: 12px;
+}
+.Comment-card-title_text_bold {
+  font-weight: 700;
+  margin-right: 10px;
+}
+.Comment-card-title_text_grey {
+  color: #666;
+}
+.Comment-card-text {
+  font-size: 14px;
+  margin: 10px 0;
+}
+.Comment-card-button {
+  border: none;
+  background: none;
+  outline: none;
+  padding: 0;
+  color: #0087e9;
+  width: fit-content;
+  cursor: pointer;
+}
+/* .Comments-prop {
+  margin: 20px 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.Comments-prop_size_big {
+  font-size: 24px;
+}
+
+.Comments-label {
+  padding-right: 5px;
+}
+
+.Comments-value {
+  font-weight: bold;
+} */

@@ -1,0 +1,28 @@
+.Comments {
+  padding: 40px 40px;
+}
+
+.Comments-title {
+  font-weight: 400;
+  margin-bottom: -5px;
+}
+.Comments-list {
+  margin-top: 0px;
+}
+/* .Comments-prop {
+  margin: 20px 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.Comments-prop_size_big {
+  font-size: 24px;
+}
+
+.Comments-label {
+  padding-right: 5px;
+}
+
+.Comments-value {
+  font-weight: bold;
+} */
