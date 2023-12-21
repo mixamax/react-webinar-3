@@ -1,5 +1,5 @@
 import { memo } from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
@@ -24,12 +24,13 @@ function CommentNote(props) {
   );
 }
 
-// ProfileCard.propTypes = {
-//   data: PropTypes.object.isRequired,
-// };
+CommentNote.propTypes = {
+  isBackButton: PropTypes.bool.isRequired,
+  setIsActiveComment: PropTypes.func,
+};
 
-// ProfileCard.defaultProps = {
-//   onAdd: () => {},
-// };
+CommentNote.defaultProps = {
+  setIsActiveComment: () => {},
+};
 
 export default memo(CommentNote);
