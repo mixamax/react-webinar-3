@@ -30,6 +30,7 @@ function Article() {
   const customSelect = customUseSelector((state) => ({
     exists: state.session.exists,
     waiting: state.session.waiting,
+    userName: state.session.user.profile?.name,
   }));
 
   useInit(() => {
@@ -86,6 +87,7 @@ function Article() {
       </Spinner>
       <Spinner active={select.waitingComments}>
         <Comments
+          userName={customSelect.userName}
           sendComment={callbacks.sendComment}
           articleId={params.id}
           waiting={customSelect.waiting}

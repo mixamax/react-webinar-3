@@ -16,6 +16,7 @@ function Comments(props) {
       <div className={cn("list")}>
         {props.comments.map((item) => (
           <CommentCard
+            userName={props.userName}
             key={item.id}
             id={item.id}
             articleId={props.articleId}
@@ -57,6 +58,7 @@ Comments.propTypes = {
   waiting: PropTypes.bool.isRequired,
   exists: PropTypes.bool.isRequired,
   count: PropTypes.number.isRequired,
+  userName: PropTypes.string,
 };
 
 Comments.defaultProps = {

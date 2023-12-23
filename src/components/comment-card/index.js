@@ -11,8 +11,16 @@ function CommentCard(props) {
   return (
     <div style={{ marginLeft: `${30 * props.margin}px` }} className={cn()}>
       <div className={cn("title")}>
-        <span className={cn("title", { text: "bold" })}>{props.name}</span>
-        <span className={cn("title", { text: "grey" })}>{props.date}</span>{" "}
+        <span
+          className={
+            props.userName === props.name
+              ? cn("title", { text: "bold", textcolor: "grey" })
+              : cn("title", { text: "bold" })
+          }
+        >
+          {props.name}
+        </span>
+        <span className={cn("title", { textcolor: "grey" })}>{props.date}</span>{" "}
       </div>
       <p className={cn("text")}>{props.text}</p>
       <button
@@ -55,6 +63,7 @@ CommentCard.propTypes = {
   setIsActiveComment: PropTypes.func.isRequired,
   activeComment: PropTypes.string.isRequired,
   sendComment: PropTypes.func.isRequired,
+  userName: PropTypes.string,
 };
 
 CommentCard.defaultProps = {
