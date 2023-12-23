@@ -8,6 +8,8 @@ import CommentNote from "../comment-note";
 function CommentCard(props) {
   const cn = bem("Comment-card");
 
+  let dateCorrect = props.date.replace(/ г\./gi, "");
+
   return (
     <div style={{ marginLeft: `${30 * props.margin}px` }} className={cn()}>
       <div className={cn("title")}>
@@ -20,7 +22,9 @@ function CommentCard(props) {
         >
           {props.name}
         </span>
-        <span className={cn("title", { textcolor: "grey" })}>{props.date}</span>{" "}
+        <span className={cn("title", { textcolor: "grey" })}>
+          {dateCorrect}
+        </span>{" "}
       </div>
       <p className={cn("text")}>{props.text}</p>
       <button
