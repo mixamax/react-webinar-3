@@ -9,7 +9,10 @@ import CommentNote from "../comment-note";
 function Comments(props) {
   const cn = bem("Comments");
   const [activeComment, setIsActiveComment] = useState("none");
+  const [idForAnswer, setIdForAnswer] = useState("none");
+  const [parentMargin, setParentMargin] = useState(0);
 
+  console.log("отсортиров комменты", props.comments);
   return (
     <div className={cn()}>
       <h2 className={cn("title")}>Комментарии ({props.count})</h2>
@@ -28,15 +31,20 @@ function Comments(props) {
             margin={item.margin}
             date={item.date}
             setIsActiveComment={setIsActiveComment}
+            setIdForAnswer={setIdForAnswer}
             activeComment={activeComment}
             sendComment={props.sendComment}
+            children={item.children}
+            idForAnswer={idForAnswer}
+            parentMargin={parentMargin}
+            setParentMargin={setParentMargin}
           />
         ))}
 
         {activeComment === "none" &&
           (props.exists ? (
             <CommentInput
-              //   articleId={props.articleId}
+              margin={"none"}
               isBackButton={false}
               parentId={props.articleId}
               type={"article"}
@@ -44,7 +52,7 @@ function Comments(props) {
               setIsActiveComment={setIsActiveComment}
             />
           ) : (
-            <CommentNote isBackButton={false} />
+            <CommentNote margin={"none"} isBackButton={false} />
           ))}
       </div>
     </div>

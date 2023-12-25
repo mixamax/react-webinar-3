@@ -1,4 +1,4 @@
-import { memo, useId, useState } from "react";
+import { memo, useEffect, useId, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 
@@ -7,6 +7,7 @@ import "./style.css";
 function CommentInput(props) {
   const cn = bem("Comment-input");
   const [textArea, setTextArea] = useState("");
+  const ref = useRef();
 
   const sendComment = (e) => {
     e.preventDefault();
@@ -15,12 +16,24 @@ function CommentInput(props) {
       text: textArea,
       parent: { _id: props.parentId, _type: props.type },
     };
+    if (textArea.trim() === "") return;
     props.sendComment(body);
     props.setIsActiveComment("none");
   };
+  let margin = 0;
+  if (props.margin !== "none") margin = props.margin + 1;
+  useEffect(() => {
+    // console.dir(ref.current.offsetTop);
+    if (props.margin !== "none") {
+      window.scrollTo({
+        top: ref.current.offsetTop - document.documentElement.clientHeight / 2,
+        behavior: "smooth",
+      });
+    }
+  }, []);
 
   return (
-    <div className={cn()}>
+    <div ref={ref} style={{ marginLeft: `${30 * margin}px` }} className={cn()}>
       <span className={cn("title")}>{`${"Новый комментарий"}`}</span>
       <form onSubmit={sendComment}>
         <textarea

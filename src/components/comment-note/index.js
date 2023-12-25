@@ -1,16 +1,38 @@
-import { memo } from "react";
+import { memo, useEffect, useRef, useCallback } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
 function CommentNote(props) {
   const cn = bem("Comment-note");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const ref = useRef();
+  let margin = 0;
+  if (props.margin !== "none") margin = props.margin + 1;
+  useEffect(() => {
+    if (props.margin !== "none") {
+      window.scrollTo({
+        top: ref.current.offsetTop - document.documentElement.clientHeight / 2,
+        behavior: "smooth",
+      });
+    }
+  }, []);
+
+  const callbacks = {
+    // Переход к авторизации
+    onSignIn: useCallback(() => {
+      navigate("/login", { state: { back: location.pathname } });
+    }, [location.pathname]),
+  };
 
   return (
-    <div className={cn()}>
-      <a href="/login" className={cn("loginlink")}>
+    <div ref={ref} className={cn()} style={{ marginLeft: `${30 * margin}px` }}>
+      <button className={cn("loginlink")} onClick={callbacks.onSignIn}>
         Войдите
-      </a>
+      </button>
+
       <span>, чтобы иметь возможность ответить. </span>
       {props.isBackButton && (
         <button

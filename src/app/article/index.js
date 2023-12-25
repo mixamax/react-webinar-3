@@ -42,7 +42,7 @@ function Article() {
     (state) => ({
       article: state.article.data,
       waiting: state.article.waiting,
-      comments: state.comments.data.items,
+      data: state.comments.data,
       count: state.comments.data.count,
       waitingComments: state.comments.waiting,
     }),
@@ -51,6 +51,8 @@ function Article() {
 
   const { t } = useTranslate();
 
+  //   console.log("render AAAAAAAAAAarticle");
+  //   console.log(select.data.items);
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(
@@ -93,14 +95,18 @@ function Article() {
           waiting={customSelect.waiting}
           exists={customSelect.exists}
           count={select.count}
-          comments={treeToList(listToTree(select.comments), (item, level) => ({
-            margin: level,
-            date: new Date(item.dateCreate).toLocaleString("ru", options),
-            name: item.author.profile.name,
-            text: item.text,
-            id: item._id,
-            parentId: item.parent._id,
-          }))}
+          comments={treeToList(
+            listToTree(select.data.items),
+            (item, level) => ({
+              margin: level,
+              date: new Date(item.dateCreate).toLocaleString("ru", options),
+              name: item.author?.profile?.name || customSelect.userName,
+              text: item.text,
+              id: item._id,
+              parentId: item.parent._id,
+              children: item.children,
+            })
+          )}
         />
       </Spinner>
     </PageLayout>
