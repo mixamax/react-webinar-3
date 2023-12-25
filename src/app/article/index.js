@@ -1,5 +1,5 @@
 import { memo, useCallback } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
@@ -45,6 +45,9 @@ function Article() {
       data: state.comments.data,
       count: state.comments.data.count,
       waitingComments: state.comments.waiting,
+      activeComment: state.comments.activeComment,
+      parentMarginRedux: state.comments.parentMargin,
+      idForAnswerRedux: state.comments.idForAnswer,
     }),
     shallowequal
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
@@ -60,6 +63,11 @@ function Article() {
     sendComment: useCallback(
       (body) => dispatch(commentsActions.sendComment(body, params.id)),
       [params.id]
+    ),
+    setActiveComment: useCallback(
+      (id, margin, idForAnswer) =>
+        dispatch(commentsActions.setActiveComment(id, margin, idForAnswer)),
+      []
     ),
   };
 
@@ -87,12 +95,16 @@ function Article() {
       </Spinner>
       <Spinner active={select.waitingComments}>
         <Comments
+          idForAnswerRedux={select.idForAnswerRedux}
+          parentMarginRedux={select.parentMarginRedux}
           userName={customSelect.userName}
           sendComment={callbacks.sendComment}
           articleId={params.id}
           waiting={customSelect.waiting}
           exists={customSelect.exists}
           count={select.count}
+          activeCommentRedux={select.activeComment}
+          setActiveCommentRedux={callbacks.setActiveComment}
           comments={treeToList(
             listToTree(select.data.items),
             (item, level) => ({

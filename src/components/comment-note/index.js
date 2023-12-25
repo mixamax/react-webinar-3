@@ -23,7 +23,9 @@ function CommentNote(props) {
   const callbacks = {
     // Переход к авторизации
     onSignIn: useCallback(() => {
-      navigate("/login", { state: { back: location.pathname } });
+      navigate("/login", {
+        state: { back: location.pathname },
+      });
     }, [location.pathname]),
   };
 

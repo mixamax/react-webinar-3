@@ -6,6 +6,9 @@ export const initialState = {
     postcomment: {},
   },
   waiting: false, // признак ожидания загрузки
+  activeComment: "none",
+  parentMargin: "none",
+  idForAnswer: "none",
 };
 
 // Обработчик действий
@@ -34,6 +37,14 @@ function reducer(state = initialState, action) {
       };
     case "postcomment/load-error":
       return state;
+
+    case "setActiveComment":
+      return {
+        ...state,
+        activeComment: action.payload.data.id,
+        parentMargin: action.payload.data.parentMargin,
+        idForAnswer: action.payload.data.idForAnswer,
+      };
 
     default:
       // Нет изменений

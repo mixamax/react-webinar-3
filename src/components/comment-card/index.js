@@ -33,11 +33,11 @@ function CommentCard(props) {
         <button
           className={cn("button")}
           onClick={() => {
-            props.setParentMargin(margin);
-            props.setIsActiveComment(() =>
-              searchLastChildren(props.children, props.id)
+            props.setIsActiveComment(
+              searchLastChildren(props.children, props.id),
+              margin,
+              props.id
             );
-            props.setIdForAnswer(props.id);
           }}
         >
           Ответить
@@ -46,7 +46,7 @@ function CommentCard(props) {
       {props.activeComment === props.id &&
         (props.exists ? (
           <CommentInput
-            margin={props.parentMargin}
+            margin={props.parentMarginRedux}
             parentId={props.idForAnswer}
             type={"comment"}
             isBackButton={true}
@@ -55,7 +55,7 @@ function CommentCard(props) {
           />
         ) : (
           <CommentNote
-            margin={props.parentMargin}
+            margin={props.parentMarginRedux}
             isBackButton={true}
             setIsActiveComment={props.setIsActiveComment}
           />
@@ -70,15 +70,13 @@ CommentCard.propTypes = {
   parentId: PropTypes.string.isRequired,
   waiting: PropTypes.bool.isRequired,
   exists: PropTypes.bool.isRequired,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   text: PropTypes.string.isRequired,
   margin: PropTypes.number.isRequired,
-  parentMargin: PropTypes.number.isRequired,
   date: PropTypes.string.isRequired,
   setIsActiveComment: PropTypes.func.isRequired,
   activeComment: PropTypes.string.isRequired,
   sendComment: PropTypes.func.isRequired,
-  setParentMargin: PropTypes.func.isRequired,
   userName: PropTypes.string,
   children: PropTypes.array.isRequired,
   idForAnswer: PropTypes.string,
@@ -87,7 +85,6 @@ CommentCard.propTypes = {
 CommentCard.defaultProps = {
   sendComment: () => {},
   setIsActiveComment: () => {},
-  setParentMargin: () => {},
 };
 
 export default memo(CommentCard);

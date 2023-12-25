@@ -8,9 +8,6 @@ import CommentNote from "../comment-note";
 
 function Comments(props) {
   const cn = bem("Comments");
-  const [activeComment, setIsActiveComment] = useState("none");
-  const [idForAnswer, setIdForAnswer] = useState("none");
-  const [parentMargin, setParentMargin] = useState(0);
 
   return (
     <div className={cn()}>
@@ -18,6 +15,7 @@ function Comments(props) {
       <div className={cn("list")}>
         {props.comments.map((item) => (
           <CommentCard
+            parentMarginRedux={props.parentMarginRedux}
             userName={props.userName}
             key={item.id}
             id={item.id}
@@ -29,18 +27,15 @@ function Comments(props) {
             text={item.text}
             margin={item.margin}
             date={item.date}
-            setIsActiveComment={setIsActiveComment}
-            setIdForAnswer={setIdForAnswer}
-            activeComment={activeComment}
+            setIsActiveComment={props.setActiveCommentRedux}
+            activeComment={props.activeCommentRedux}
             sendComment={props.sendComment}
             children={item.children}
-            idForAnswer={idForAnswer}
-            parentMargin={parentMargin}
-            setParentMargin={setParentMargin}
+            idForAnswer={props.idForAnswerRedux}
           />
         ))}
 
-        {activeComment === "none" &&
+        {props.activeCommentRedux === "none" &&
           (props.exists ? (
             <CommentInput
               margin={"none"}
@@ -48,7 +43,7 @@ function Comments(props) {
               parentId={props.articleId}
               type={"article"}
               sendComment={props.sendComment}
-              setIsActiveComment={setIsActiveComment}
+              setIsActiveComment={props.setActiveCommentRedux}
             />
           ) : (
             <CommentNote margin={"none"} isBackButton={false} />
@@ -66,10 +61,13 @@ Comments.propTypes = {
   exists: PropTypes.bool.isRequired,
   count: PropTypes.number.isRequired,
   userName: PropTypes.string,
+  activeCommentRedux: PropTypes.string.isRequired,
+  setActiveCommentRedux: PropTypes.func.isRequired,
 };
 
 Comments.defaultProps = {
   sendComment: () => {},
+  setActiveCommentRedux: () => {},
 };
 
 export default memo(Comments);

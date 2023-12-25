@@ -47,4 +47,14 @@ export default {
       }
     };
   },
+  setActiveComment: (id, parentMargin, idForAnswer) => {
+    return (dispatch, getState, services) => {
+      dispatch({
+        type: "setActiveComment",
+        payload: {
+          data: { id, parentMargin, idForAnswer },
+        },
+      });
+    };
+  },
 };
