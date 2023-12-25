@@ -90,18 +90,14 @@ CommentCard.defaultProps = {
 
 export default memo(CommentCard);
 
+let idForInput = "0";
 function searchLastChildren(children, id) {
-  //   console.log(children);
-  let idForInput = id;
-  if (children.length > 0) {
+  if (children.length === 0) {
+    idForInput = id;
+  } else {
     let lastChildrenId = children[children.length - 1]._id;
     let newChildren = children[children.length - 1].children;
-    idForInput = lastChildrenId;
-    // console.log(idForInput, "в цикле");
     searchLastChildren(newChildren, lastChildrenId);
-  } else {
-    idForInput = id;
   }
-  //   console.log(idForInput);
   return idForInput;
 }
