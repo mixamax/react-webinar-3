@@ -22,7 +22,6 @@ function reducer(state = initialState, action) {
 
     case "postcomment/load-success":
       const newPostComment = action.payload.post;
-      console.log(newPostComment, "новый пост");
       const newItems = [...state.data.items, newPostComment];
       const newCount = state.data.count + 1;
       return {

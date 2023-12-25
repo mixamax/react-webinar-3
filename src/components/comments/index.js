@@ -12,7 +12,6 @@ function Comments(props) {
   const [idForAnswer, setIdForAnswer] = useState("none");
   const [parentMargin, setParentMargin] = useState(0);
 
-  console.log("отсортиров комменты", props.comments);
   return (
     <div className={cn()}>
       <h2 className={cn("title")}>Комментарии ({props.count})</h2>

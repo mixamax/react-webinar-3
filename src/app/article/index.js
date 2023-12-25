@@ -51,8 +51,6 @@ function Article() {
 
   const { t } = useTranslate();
 
-  //   console.log("render AAAAAAAAAAarticle");
-  //   console.log(select.data.items);
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(

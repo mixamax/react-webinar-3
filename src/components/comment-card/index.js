@@ -11,9 +11,6 @@ function CommentCard(props) {
   if (props.margin >= 14) margin = 14;
 
   let dateCorrect = props.date.replace(/ г\./gi, "");
-  //   console.log(props.id);
-  //   console.log(props.parentId);
-  //   console.log(props.children);
 
   return (
     <div className={cn()}>
@@ -76,16 +73,21 @@ CommentCard.propTypes = {
   name: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   margin: PropTypes.number.isRequired,
+  parentMargin: PropTypes.number.isRequired,
   date: PropTypes.string.isRequired,
   setIsActiveComment: PropTypes.func.isRequired,
   activeComment: PropTypes.string.isRequired,
   sendComment: PropTypes.func.isRequired,
+  setParentMargin: PropTypes.func.isRequired,
   userName: PropTypes.string,
+  children: PropTypes.array.isRequired,
+  idForAnswer: PropTypes.string,
 };
 
 CommentCard.defaultProps = {
   sendComment: () => {},
   setIsActiveComment: () => {},
+  setParentMargin: () => {},
 };
 
 export default memo(CommentCard);

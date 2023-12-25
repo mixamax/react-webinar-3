@@ -23,7 +23,6 @@ function CommentInput(props) {
   let margin = 0;
   if (props.margin !== "none") margin = props.margin + 1;
   useEffect(() => {
-    // console.dir(ref.current.offsetTop);
     if (props.margin !== "none") {
       window.scrollTo({
         top: ref.current.offsetTop - document.documentElement.clientHeight / 2,

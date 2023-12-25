@@ -33,12 +33,6 @@ function Login() {
     password: "",
   });
 
-  const back =
-    location.state?.back && location.state?.back !== location.pathname
-      ? location.state?.back
-      : "/";
-  console.log("baaaaaaaaaaaaaaaaaaaaaaaack", back);
-
   const callbacks = {
     // Колбэк на ввод в элементах формы
     onChange: useCallback((value, name) => {
